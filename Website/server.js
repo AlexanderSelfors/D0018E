@@ -1,19 +1,18 @@
 const express = require('express');
-const app = express();
 const mysql = require('mysql');
 
+const app = express();
+
 var con = mysql.createConnection({
-    host: '#',
-    user: '#',
-    password: '#'
+    host: 'utbweb.its.ltu.se',
+    user: '19990308',
+    password: 'bestDBever12',
+    database: 'db19990308'
 });
 
 con.connect(function(error){
-    if(error){
-        console.log('Connection Failed!');
-    }else{
-        console.log('Connection Established!');
-    }
+    if(error) throw error;
+    console.log('It woooooorks!');
 });
 
 app.get('/', (req, res) => {

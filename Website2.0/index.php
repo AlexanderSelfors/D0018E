@@ -1,12 +1,14 @@
 <?php
     function db_connect(){
-        $connection = mysqli_connect('utbweb.its.ltu.se', '19990308', 'bestDBever12', 'db19990308');
+        $connection = mysqli_connect('utbweb.its.ltu.se', '19931112', '19931112', 'db19931112');
         if(mysqli_connect_errno()){
             echo "Fuck";
         }else{
             echo "Finally!";
         }
         return $connection;
+
+        
     }
 
     db_connect();

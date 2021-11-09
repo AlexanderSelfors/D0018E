@@ -1,0 +1,28 @@
+body{
+    background-color: #474747;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.Menu{
+    margin-top: 15px;
+}
+.right-menu{
+    display: inline;
+    margin-left: 5%;
+}
+.left-menu{
+    display: inline;
+    margin-left: 60%;
+}
+.menu-item{
+    padding: 1%;
+    font-size: 20px;
+}
+#cart{
+    font-size: 30px;
+    margin-left: 5%;
+}

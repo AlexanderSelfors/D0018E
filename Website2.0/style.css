@@ -9,12 +9,14 @@ a{
 }
 .Menu{
     margin-top: 15px;
+    color: black;
+
 }
-.right-menu{
+.left-menu{
     display: inline;
     margin-left: 5%;
 }
-.left-menu{
+.right-menu{
     display: inline;
     margin-left: 60%;
 }
@@ -25,4 +27,73 @@ a{
 #cart{
     font-size: 30px;
     margin-left: 5%;
+}
+
+.box{
+    width: 380px;
+    height: 400px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    border-radius: 30px;
+}
+.login-input{
+    top: 100px;
+    position: absolute;
+    width: 280px;
+    left: 50px;
+}
+.input-field{
+    width: 100%;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    padding: 8px 0;
+    margin: 3px;
+    outline: none;
+    background: transparent;
+}
+.submit-login{
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    border: 0;
+    outline: none;
+    border-radius: 28px;
+    background: linear-gradient(to right, #14e4ff, #002fff);
+
+}
+
+.checkbox{
+    margin: 25px 10px 35px 0;
+}
+
+span{
+    color: #777;
+    font-size: 13px;
+}
+
+.register-input{
+    top: 50px;
+    position: absolute;
+    width: 280px;
+    left: 50px;
+    
+}
+
+.submit-register{
+    margin: 25px 10px 35px 20px;
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    border: 0;
+    outline: none;
+    border-radius: 28px;
+    background: linear-gradient(to right, #14e4ff, #002fff);
+
 }

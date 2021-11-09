@@ -1,4 +1,6 @@
 const express = require('express');
+const hostname = '130.240.207.20';
+const port ='24567';
 const mysql = require('mysql');
 
 const app = express();
@@ -19,4 +21,6 @@ app.get('/', (req, res) => {
     res.render('index.ejs');
 });
 
-app.listen('3000');
+app.listen(hostname, () => {
+    console.log('server running at http://${hostname}:${port}/');
+});

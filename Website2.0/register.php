@@ -9,9 +9,9 @@
 
     <div class="box">
         <div class="button-box">
-            <form class="register-input">
+            <form action="sqlphp/signup.php" method="post" class="register-input">
                 <input type="text" name="email" class="input-field" placeholder ="Email">
-                <input type="text" name="name" class="input-field" placeholder ="Username">
+                <input type="text" name="UID§" class="input-field" placeholder ="Username">
                 <input type="password" name="password" class="input-field" placeholder ="Password">
                 <input type="password" name="passwordrepeat" class="input-field" placeholder ="Repeat password">
                 <input type="text" name="fname" class="input-field" placeholder ="First Name">

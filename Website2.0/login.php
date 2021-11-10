@@ -9,7 +9,5 @@
             <button type="submit" class="submit-login">Log in</button>
         </form>
     </div>
-
-    
 </body>
 </html>

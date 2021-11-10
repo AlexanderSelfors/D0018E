@@ -49,3 +49,17 @@ function usernameExists($connection, $username) {
 
     mysqli_stmt_close($prepStatement);
 }
+
+function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
+    $sql = "INSERT INTO users (username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    $prepStatement = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($prepStatement, $sql)) {
+        header("location: ../register.php?error=sqlstatmentfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($prepStatement, "sssssss", $username, $email, $password, $fName, $lName, $address, $pNumber);
+    mysqli_stmt_execute($prepStatement);
+    mysqli_stmt_close($prepStatement);
+    header("location: ../index.php");
+}

@@ -8,7 +8,7 @@ if (isset($_POST["submit"])) {
     $passwordRepeat = $_POST["passwordrepeat"];
     $fName = $_POST["fname"];
     $lName = $_POST["lname"];
-    $adress = $_POST["adress"];
+    $address = $_POST["address"];
     $pNumber = $_POST["pnumber"];
 
     require_once 'dbconn.php';
@@ -24,7 +24,7 @@ if (isset($_POST["submit"])) {
         exit();
     }
 
-    else if (passwordMatch($password, $passwordRepeat) !== false) {
+    else if (passwordMatch($password, $passwordRepeat) == false) {
         header("location: ../register.php?error=passwordnotmatch");
         exit();
     }
@@ -35,7 +35,7 @@ if (isset($_POST["submit"])) {
     }
 
     else {
-        createUser($connection, $username, $email, $password, $fName, $lName, $adress, $pNumber);
+        createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber);
         exit();
     }
 

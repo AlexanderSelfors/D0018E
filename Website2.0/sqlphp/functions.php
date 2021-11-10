@@ -28,7 +28,21 @@ function passwordMatch($password, $passwordRepeat) {
 }
 
 function usernameExists($connection, $username) {
-    $sql = "SELECT * FROM users WHERE UID = ?;";
+    $sql = "SELECT username FROM USERS WHERE username=$username;";
+    
+    $result = $connection->query($sql);
+
+    if ($result) {
+        header("location: ../register.php?error=usernametaken");
+    }
+    else {
+
+    }
+}
+
+/*
+function usernameExists($connection, $username) {
+    $sql = "SELECT * FROM USERS WHERE userUID = ?;";
     $prepStatement = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($prepStatement, $sql)) {
         header("location: ../register.php?error=sqlstatmentfailed");
@@ -51,7 +65,7 @@ function usernameExists($connection, $username) {
 }
 
 function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
-    $sql = "INSERT INTO users (username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    $sql = "INSERT INTO USERS (userUID, username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES (?, ?, ?, ?, ?, ?, ?);";
     $prepStatement = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($prepStatement, $sql)) {
         header("location: ../register.php?error=sqlstatmentfailed");
@@ -63,3 +77,4 @@ function createUser($connection, $username, $email, $password, $fName, $lName, $
     mysqli_stmt_close($prepStatement);
     header("location: ../index.php");
 }
+*/

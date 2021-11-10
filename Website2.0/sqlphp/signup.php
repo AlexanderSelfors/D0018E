@@ -19,25 +19,25 @@ if (isset($_POST["submit"])) {
         exit();
     }
 
-    else if (invalidEmail($email) !== false) {
+    if (invalidEmail($email) !== false) {
         header("location: ../register.php?error=invalidemail");
         exit();
     }
-
-    else if (passwordMatch($password, $passwordRepeat) == false) {
+    
+    if (passwordMatch($password, $passwordRepeat) !== false) {
         header("location: ../register.php?error=passwordnotmatch");
         exit();
     }
 
-    else if (usernameExists($connection, $username) !== false) {
+    if (usernameExists($connection, $username) !== false) {
         header("location: ../register.php?error=usernametaken");
         exit();
     }
 
-    else {
-        createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber);
-        exit();
-    }
+    
+    createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber);
+    exit();
+    
 
 }
 else {

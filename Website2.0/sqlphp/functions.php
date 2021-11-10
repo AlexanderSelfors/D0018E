@@ -24,7 +24,7 @@ function passwordMatch($password, $passwordRepeat) {
     }
     else {
         return false;
-    }
+        }
 }
 
 function usernameExists($connection, $username) {
@@ -32,13 +32,20 @@ function usernameExists($connection, $username) {
     
     $result = $connection->query($sql);
 
-    if ($result) {
-        header("location: ../register.php?error=usernametaken");
+    if ($result->num_rows > 0) {
+        return true;
     }
     else {
-
+        return false;
     }
 }
+
+function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
+    $sql = "INSERT INTO USERS (username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES ($username, $password, $email, $fName, $lName, $address, $pNumber);";
+
+    $result = $connection->query($sql);
+}
+
 
 /*
 function usernameExists($connection, $username) {

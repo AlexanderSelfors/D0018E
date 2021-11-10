@@ -3,7 +3,7 @@
 if (isset($_POST["submit"])) {
 
     $email = $_POST["email"];
-    $uid = $_POST["uid"];
+    $username = $_POST["username"];
     $password = $_POST["password"];
     $passwordRepeat = $_POST["passwordrepeat"];
     $fName = $_POST["fname"];
@@ -14,27 +14,30 @@ if (isset($_POST["submit"])) {
     require_once 'dbconn.php';
     require_once 'functions.php';
 
-    if (emptyInputSignup($email, $uid, $password, $passwordRepeat) !== false) {
+    if (emptyInputSignup($email, $username, $password, $passwordRepeat) !== false) {
         header("location: ../register.php?error=missinginput");
         exit();
     }
 
-    if (invalidEmail($email) !== false) {
+    else if (invalidEmail($email) !== false) {
         header("location: ../register.php?error=invalidemail");
         exit();
     }
 
-    if (passwordMatch($password, $passwordRepeat) !== false) {
+    else if (passwordMatch($password, $passwordRepeat) !== false) {
         header("location: ../register.php?error=passwordnotmatch");
         exit();
     }
 
-    if (usernameExists($connection, $username) !== false) {
+    else if (usernameExists($connection, $username) !== false) {
         header("location: ../register.php?error=usernametaken");
         exit();
     }
 
-    createUser($connection, $uid, $email, $password, $fName, $lName, $adress, $pNumber);
+    else {
+        createUser($connection, $username, $email, $password, $fName, $lName, $adress, $pNumber);
+        exit();
+    }
 
 }
 else {

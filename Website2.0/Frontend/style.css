@@ -1,38 +1,93 @@
 /* General */
+*{
+    text-decoration: none;
+}
+
 body{
+    margin: 0;
+    padding: 0;
     background-color: #474747;
     color: white;
     font-family: 'Times New Roman', Times, serif;
 }
-a{
-    text-decoration: none;
-    color: white;
-}
 
 /* Menu Design */
-.Menu{
-    margin-top: 15px;
-    color: black;
-
+.header{
+    width: 100%;
+    height: 80px;
+    display: block;
+    background-color: #101010;
 }
+
+.inner-header{
+    width: 1000px;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.logo{
+    height: 100%;
+    display: table;
+    float: left;
+}
+
+.logo a {
+    color: white;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.logo a h1{
+    color: white;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 200;
+}
+
+.logo a h1 span{
+    font-weight: 800;
+}
+
 .left-menu{
     display: inline;
     margin-left: 5%;
 }
+
 .right-menu{
-    display: inline;
-    margin-left: 60%;
+    float: right;
+    height: 100%;
 }
+
+.right-menu a{
+    color: white;
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 0px 20px;
+}
+
+.right-menu a li{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%; 
+}
+
+.right-menu a:last-child{
+    padding-right: 0;
+}
+
 .menu-item{
     padding: 1%;
     font-size: 20px;
 }
 #cart{
     font-size: 30px;
-    margin-left: 5%;
 }
 
-/* General for login & register */
+/* General or login & register */
 .box{
     width: 380px;
     height: 500px;
@@ -90,7 +145,7 @@ a{
     margin: 25px 10px 35px 0;
 }
 
-span{
+.login-input span{
     color: #777;
     font-size: 13px;
 }

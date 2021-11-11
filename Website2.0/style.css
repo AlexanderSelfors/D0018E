@@ -1,3 +1,4 @@
+/* General */
 body{
     background-color: #474747;
     color: white;
@@ -7,6 +8,8 @@ a{
     text-decoration: none;
     color: white;
 }
+
+/* Menu Design */
 .Menu{
     margin-top: 15px;
     color: black;
@@ -29,6 +32,7 @@ a{
     margin-left: 5%;
 }
 
+/* General for login & register */
 .box{
     width: 380px;
     height: 500px;
@@ -38,12 +42,7 @@ a{
     padding: 5px;
     border-radius: 30px;
 }
-.login-input{
-    top: 100px;
-    position: absolute;
-    width: 280px;
-    left: 50px;
-}
+
 .input-field{
     width: 100%;
     border-left: 0;
@@ -55,6 +54,15 @@ a{
     outline: none;
     background: transparent;
 }
+
+/* Login specific */
+.login-input{
+    top: 100px;
+    position: absolute;
+    width: 280px;
+    left: 50px;
+}
+
 .submit-login{
     width: 85%;
     padding: 10px 30px;
@@ -77,6 +85,7 @@ span{
     font-size: 13px;
 }
 
+/* Register specific */
 .register-input{
     top: 50px;
     position: absolute;

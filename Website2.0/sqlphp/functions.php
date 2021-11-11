@@ -24,11 +24,32 @@ function passwordMatch($password, $passwordRepeat) {
     }
     else {
         return false;
-    }
+        }
 }
 
 function usernameExists($connection, $username) {
-    $sql = "SELECT * FROM users WHERE UID = ?;";
+    $sql = "SELECT username FROM USERS WHERE username=$username;";
+    
+    $result = $connection->query($sql);
+
+    if ($result->num_rows > 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
+    $sql = "INSERT INTO USERS (username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES ($username, $password, $email, $fName, $lName, $address, $pNumber);";
+
+    $result = $connection->query($sql);
+}
+
+
+/*
+function usernameExists($connection, $username) {
+    $sql = "SELECT * FROM USERS WHERE userUID = ?;";
     $prepStatement = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($prepStatement, $sql)) {
         header("location: ../register.php?error=sqlstatmentfailed");
@@ -49,3 +70,18 @@ function usernameExists($connection, $username) {
 
     mysqli_stmt_close($prepStatement);
 }
+
+function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
+    $sql = "INSERT INTO USERS (userUID, username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    $prepStatement = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($prepStatement, $sql)) {
+        header("location: ../register.php?error=sqlstatmentfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($prepStatement, "sssssss", $username, $email, $password, $fName, $lName, $address, $pNumber);
+    mysqli_stmt_execute($prepStatement);
+    mysqli_stmt_close($prepStatement);
+    header("location: ../index.php");
+}
+*/

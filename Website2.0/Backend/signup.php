@@ -6,6 +6,10 @@ if (isset($_POST["submit"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     $passwordRepeat = $_POST["passwordrepeat"];
+    $fName = $_POST["fname"];
+    $lName = $_POST["lname"];
+    $pNumber = $_POST["pnumber"];
+    $address = $_POST['address'];
 
     require_once 'dbconn.php'; 
     session_start();
@@ -33,8 +37,7 @@ if (isset($_POST["submit"])) {
     }
 
     else {
-        createUser($connection, $username, $email, $password, $fName, $lName, $adress, $pNumber);
-        header("location: ../Frontend/register.php?success");
+        createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber);
         exit();
     }
     

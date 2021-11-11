@@ -12,21 +12,17 @@
   }
 
 ?>
+    <form method="post" action= "../Backend/Functions/createorderfunc.php" >
+          <input type="submit" name="createorderbutton"
+            value="Button1"/>
+              
+          <input type="submit" name="button2"
+            value="Button2"/>
+      </form>
 
-</body>
-
-
-<form method="post" action= "../Backend/Functions/createorderfunc.php" >
-      <input type="submit" name="createorderbutton"
-        value="Button1"/>
-          
-      <input type="submit" name="button2"
-        value="Button2"/>
-  </form>
-
-  <div class="cart">
-</div>
-
+      <div class="cart">
+    </div>
+  </body>
 
 </html>
 

@@ -14,6 +14,26 @@
             <input type="text" name="pnumber" class="input-field" placeholder ="Phone number">
             <button type="submit" name="submit" class="submit-register">Register</button>
         </form>
+        <?php
+        if (isset($_GET["error"])) {
+            if ($_GET["error"] == "missinginput") {
+                echo("<p>Missing necessary fields</p>");
+            }
+            else if ($_GET["error"] == "invalidemail") {
+                echo("<p>Invalid email</p>");
+            }
+            else if ($_GET["error"] == "passwordnotmatch") {
+                echo("<p>Passwords did not match</p>");
+            }
+            else if ($_GET["error"] == "usernametaken") {
+                echo("<p>Username already exists</p>");
+            }
+            else if ($_GET["error"] == "sqlfailed") {
+                echo("<p>Something went wrong</p>");
+            }
+        }
+        ?>
     </div>
+
 </body>
 </html>

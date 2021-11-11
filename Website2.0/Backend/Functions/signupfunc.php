@@ -69,7 +69,7 @@ function createUser($connection, $username, $email, $password, $fName, $lName, $
 
 
 function usernameExists($connection, $username) {
-    $sql = "SELECT username from USERS WHERE username='{$username}';";
+    $sql = "SELECT username from users WHERE username='{$username}';";
     $result = mysqli_query($connection, $sql);
     if (mysqli_num_rows($result) >0) {
         return true;
@@ -80,14 +80,14 @@ function usernameExists($connection, $username) {
 }
 
 function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
-    $sql = "INSERT INTO USERS (username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES ('$username', '$password', '$email', '$fName', '$lName', '$pNumber', '$address');";
+    $sql = "INSERT INTO users (username, PWD, userEmail, userFname, userLname, userPnum, userAddress) VALUES ('$username', '$password', '$email', '$fName', '$lName', '$pNumber', '$address');";
 
     if ($connection->query($sql) === TRUE)
     {
-        header("location: ../Frontend/register.php?success");    
+        header("location: ../Frontend/login.php?accountcreated");    
     }
     else {
-        header("location: ../Frontend/register.php?sqlfailed");    
+        header("location: ../Frontend/register.php?error=sqlfailed");    
 
     }
 }

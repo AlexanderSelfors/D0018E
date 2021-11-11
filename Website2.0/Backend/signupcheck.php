@@ -13,7 +13,7 @@ if (isset($_POST["submit"])) {
 
     require_once 'dbconn.php'; 
     session_start();
-    require_once __DIR__ . '/Functions/signupCheck.php';
+    require_once __DIR__ . '/Functions/signupfunc.php';
 
 
     if (emptyInputSignup($email, $username, $password, $passwordRepeat) !== false) {

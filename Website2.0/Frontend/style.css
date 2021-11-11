@@ -51,11 +51,6 @@ body{
     font-weight: 800;
 }
 
-.left-menu{
-    display: inline;
-    margin-left: 5%;
-}
-
 .right-menu{
     float: right;
     height: 100%;
@@ -96,6 +91,14 @@ body{
     background: #fff;
     padding: 5px;
     border-radius: 30px;
+}
+
+.box p{
+    font-weight: 600;
+    color: #002fff;
+    display: table;
+    margin: 470px 110px;
+
 }
 
 .cart{

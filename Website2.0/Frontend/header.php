@@ -1,3 +1,8 @@
+<?php
+    require_once '../Backend/dbconn.php';
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,18 +21,16 @@
             </div>
             <div class="right-menu">
                 <a href='cart.php' ><li><i class="fa fa-shopping-cart" id='cart'></li></i></a>
-                <a href='login.php' class="menu-item"><li>Login</li></a>
-                <a href='register.php'class="menu-item"><li>Register</li></a>
+                <?php
+                    if (isset($_SESSION{"uid"})) {
+                        echo("<a href='profile.php'class='menu-item'><li>Profile</li></a>");
+                        echo("<a href='../Backend/Functions/logoutfunc.php' class='menu-item'><li>Logout</li></a>");
+                    }
+                    else {
+                        echo("<a href='register.php'class='menu-item'><li>Register</li></a>");
+                        echo("<a href='login.php' class='menu-item'><li>Login</li></a>");
+                    }
+                ?>
+            </div>
         </div>
-       </div>
     </div>
-
-
-        <!-- <div class='left-menu'>
-            <a href="index.php" class="menu-item">Home</a>
-        </div>
-        <div class="right-menu">
-            <a href='login.php' class="menu-item">Login</a>
-            <a href='register.php'class="menu-item">Register</a>
-            <a href='cart.php' ><i class="fa fa-shopping-cart" id='cart'></i></a>
-        </div> -->

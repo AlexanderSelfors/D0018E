@@ -8,6 +8,7 @@ if (isset($_POST["submit"])) {
     $passwordRepeat = $_POST["passwordrepeat"];
 
     require_once 'dbconn.php'; 
+    session_start();
     require_once __DIR__ . '/Functions/signupCheck.php';
 
 
@@ -16,26 +17,27 @@ if (isset($_POST["submit"])) {
         exit();
     }
 
-    if (invalidEmail($email) !== false) {
+    else if (invalidEmail($email) !== false) {
         header("location: ../Frontend/register.php?error=invalidemail");
         exit();
     }
     
-    if (passwordMatch($password, $passwordRepeat) !== false) {
+    else if (passwordMatch($password, $passwordRepeat) !== false) {
         header("location: ../Frontend/register.php?error=passwordnotmatch");
         exit();
     }
 
-    if (usernameExists($connection, $username) !== false) {
+    else if (usernameExists($connection, $username) !== false) {
         header("location: ../Frontend/register.php?error=usernametaken");
         exit();
     }
 
+    else {
+        createUser($connection, $username, $email, $password, $fName, $lName, $adress, $pNumber);
+        header("location: ../Frontend/register.php?success");
+        exit();
+    }
     
-    createUser($connection, $username, $email, $password);
-    exit();
-    
-
 }
 else {
     header("location: ../Frontend/register.php");

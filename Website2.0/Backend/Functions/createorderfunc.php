@@ -13,8 +13,8 @@
     if($count == 1){  
         echo " Found user "; echo $_SESSION["uid"];
         $sql = "INSERT INTO ORDERS (orderUID ) VALUES ('$userUID');";
-        $result = mysqli_query($connection, $sql2);
-        if($result2){
+        $result = mysqli_query($connection, $sql);
+        if($result){
             echo "Order created for user"; echo $_SESSION["uid"];
         }
     }  

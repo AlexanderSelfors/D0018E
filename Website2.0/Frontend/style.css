@@ -11,7 +11,7 @@ body{
     font-family: 'Times New Roman', Times, serif;
 }
 
-/* Menu Design */
+/* Header Design */
 .header{
     width: 100%;
     height: 80px;
@@ -82,7 +82,7 @@ body{
     font-size: 30px;
 }
 
-/* General or login & register */
+/* General login & register */
 .box{
     width: 380px;
     height: 500px;
@@ -99,16 +99,6 @@ body{
     display: table;
     margin: 470px 110px;
 
-}
-
-.cart{
-    width: 200px;
-    height: 200px;
-    position: relative;
-    margin: 6% auto;
-    background: #fff;
-    padding: 5px;
-    border-radius: 30px;
 }
 
 .input-field{

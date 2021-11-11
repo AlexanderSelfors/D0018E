@@ -1,12 +1,11 @@
 <?php      
     
-    include "dbconn.php";
+    include "../dbconn.php";
     session_start();
 
     $userUID = $_POST['uid'];  
     $pwd = $_POST['pwd'];
    
-    
     $sql = "select * from USERS where userUID = '$userUID' and PWD = '$pwd'";  
     $result = mysqli_query($connection, $sql);  
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
@@ -34,7 +33,7 @@
 
 
     <div class='left-menu'>
-    <a href="../Frontend/cart.php" class="menu-item">Cart</a>
+    <a href="../../Frontend/cart.php" class="menu-item">Cart</a>
     </div>
 
 </body>

@@ -1,5 +1,4 @@
 <?php
-    require_once '../Backend/dbconn.php';
     session_start();
 ?>
 

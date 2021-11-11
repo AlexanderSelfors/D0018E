@@ -3,24 +3,23 @@
     include "../dbconn.php";
     session_start();
 
-    $userUID = $_POST['uid'];  
-    $pwd = $_POST['pwd'];
+    $userUID = $_SESSION["uid"];
    
-    $sql = "select * from USERS where userUID = '$userUID' and PWD = '$pwd'";  
+    $sql = "select * from USERS where userUID = '$userUID'";  
     $result = mysqli_query($connection, $sql);  
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC); 
     $count = mysqli_num_rows($result);
           
     if($count == 1){  
-        echo "<h1><center> Found user </center></h1>";
-        $_SESSION["uid"] = $_POST['uid'];
-        
-           // Set session variables
-        echo "Session variables uid = "; echo $_SESSION["uid"];
-        echo "Session variables pwd = "; echo $_SESSION["pwd"];
+        echo " Found user "; echo $_SESSION["uid"];
+        $sql = "INSERT INTO ORDERS (orderUID ) VALUES ('$userUID');";
+        $result = mysqli_query($connection, $sql2);
+        if($result2){
+            echo "Order created for user"; echo $_SESSION["uid"];
+        }
     }  
     else{
-        echo"Invalid credentials";
+        echo"Could not find user";
     }
 
 ?>  

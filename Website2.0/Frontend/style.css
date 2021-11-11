@@ -43,6 +43,16 @@ a{
     border-radius: 30px;
 }
 
+.cart{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    border-radius: 30px;
+}
+
 .input-field{
     width: 100%;
     border-left: 0;

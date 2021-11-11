@@ -12,6 +12,7 @@
     <div class='Menu'>
         <div class='left-menu'>
             <a href="index.php" class="menu-item">Home</a>
+            <a href="cart.php" class="menu-item">Cart</a>
         </div>
         <div class="right-menu">
             <a href='login.php' class="menu-item">Login</a>

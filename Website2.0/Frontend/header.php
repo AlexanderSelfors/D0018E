@@ -19,6 +19,7 @@
                 <a href="index.php"><h1>Trash<span>Students</span></h1></a>
             </div>
             <div class="right-menu">
+                <a href="uploadItem.php" class='upload-item'> <li>Upload item</li><a>
                 <a href='cart.php' ><li><i class="fa fa-shopping-cart" id='cart'></li></i></a>
                 <?php
                     if (isset($_SESSION{"uid"})) {

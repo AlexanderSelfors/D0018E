@@ -51,6 +51,7 @@ body{
     font-weight: 800;
 }
 
+
 .right-menu{
     float: right;
     height: 100%;
@@ -72,6 +73,11 @@ body{
 
 .right-menu a:last-child{
     padding-right: 0;
+}
+
+.upload-item{
+    padding: 1%;
+    font-size: 20px;
 }
 
 .menu-item{

@@ -16,7 +16,7 @@
 
 <form method="post" action= "../Backend/Functions/createorderfunc.php" >
       <input type="submit" name="createorderbutton"
-        value="Button1"/>
+        value="create order"/>
           
       <input type="submit" name="button2"
         value="Button2"/>

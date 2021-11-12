@@ -3,7 +3,7 @@
 ?>
 
     <div class="box">
-        <form action="../Backend/signup.php" method="post" class="register-input">
+        <form action="../Backend/signupcheck.php" method="post" class="register-input">
         <input type="text" name="username" class="input-field" placeholder ="Username">
             <input type="password" name="password" class="input-field" placeholder ="Password">
             <input type="password" name="passwordrepeat" class="input-field" placeholder ="Repeat password">

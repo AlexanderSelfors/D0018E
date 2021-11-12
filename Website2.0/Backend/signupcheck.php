@@ -21,6 +21,11 @@ if (isset($_POST["submit"])) {
         exit();
     }
 
+    else if (usernameExists($connection, $username) !== false) {
+        header("location: ../Frontend/register.php?error=usernametaken");
+        exit();
+    }
+
     else if (invalidEmail($email) !== false) {
         header("location: ../Frontend/register.php?error=invalidemail");
         exit();
@@ -30,11 +35,7 @@ if (isset($_POST["submit"])) {
         header("location: ../Frontend/register.php?error=passwordnotmatch");
         exit();
     }
-
-    else if (usernameExists($connection, $username) !== false) {
-        header("location: ../Frontend/register.php?error=usernametaken");
-        exit();
-    }
+    
 
     else {
         createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber);

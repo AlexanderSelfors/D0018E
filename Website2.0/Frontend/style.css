@@ -170,3 +170,14 @@ body{
     background: linear-gradient(to right, #14e4ff, #002fff);
 
 }
+
+.upload-input{
+    top: 100px;
+    position: absolute;
+    width: 280px;
+    left: 50px;
+}
+.upload-input button{
+    margin-top: 25px;
+    transition-duration: 1s;
+}

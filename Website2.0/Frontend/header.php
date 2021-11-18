@@ -19,12 +19,12 @@
                 <a href="index.php"><h1>Trash<span>Students</span></h1></a>
             </div>
             <div class="right-menu">
-                <a href="uploadItem.php" class='upload-item'> <li>Upload item</li><a>
                 <a href='cart.php' ><li><i class="fa fa-shopping-cart" id='cart'></li></i></a>
                 <?php
                     if (isset($_SESSION{"uid"})) {
                         echo("<a href='profile.php'class='menu-item'><li>Profile</li></a>");
                         echo("<a href='../Backend/Functions/logoutfunc.php' class='menu-item'><li>Logout</li></a>");
+                        echo("<a href='uploadItem.php' class='upload-item'> <li>Upload item</li><a>");
                     }
                     else {
                         echo("<a href='register.php'class='menu-item'><li>Register</li></a>");

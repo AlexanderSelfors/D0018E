@@ -9,7 +9,7 @@ if(isset($_POST["submit"])){
 
     $itemName = $_POST["itemName"];
     $price = $_POST['itemName'];
-    $quantity = $_POST['Quan']
+    $quantity = $_POST['Quan'];
     $pic = $_POST['pic'];
 
     if(emptyInputUpload($itemName, $price, $quantity, $pic)){

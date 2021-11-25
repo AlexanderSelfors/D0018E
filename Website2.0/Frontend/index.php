@@ -41,8 +41,10 @@
                         echo "<td>$productName</td>";
                         echo "<td>Price = $productPrice</td>";
                         echo "<td>Stock = $productStock</td>";
-                        if ($_SESSION['uid'] == 3) {
-                            echo "<td>Delete</td>";
+                        if (isset($_SESSION['uid'])) {
+                            if($_SESSION['uid'] == 3) {
+                                echo "<td>Delete</td>";
+                            }
                         }
                         echo "</tr>";
                         echo "</table>";

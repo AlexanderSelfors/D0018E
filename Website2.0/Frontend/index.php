@@ -41,8 +41,8 @@
                         echo "<td>$productName</td>";
                         echo "<td>Price = $productPrice</td>";
                         echo "<td>Stock = $productStock</td>";
-                        if ($username == "Admin") {
-                            echo "<td>$username</td>";
+                        if ($_SESSION['uid'] == 3) {
+                            echo "<td>Delete</td>";
                         }
                         echo "</tr>";
                         echo "</table>";

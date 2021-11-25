@@ -28,45 +28,6 @@ function passwordMatch($password, $passwordRepeat) {
         return false;
     }
 }
-/*
-function usernameExists($connection, $username) {
-    $sql = "SELECT * FROM USERS WHERE userUID = ?;";
-    $prepStatement = mysqli_stmt_init($connection);
-    if (!mysqli_stmt_prepare($prepStatement, $sql)) {
-        header("location: ../Frontend/register.php?error=sqlstatmentfailed");
-        exit();
-    }
-
-    mysqli_stmt_bind_param($prepStatement, "s", $username);
-    mysqli_stmt_execute($prepStatement);
-
-    $resultData = mysqli_stmt_get_result($prepStatement);
-
-    if($row = mysqli_fetch_assoc($resultData)) {
-        return $row;
-    }
-    else {
-        return false;
-    }
-
-    mysqli_stmt_close($prepStatement);
-}
-
-function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
-    $sql = "INSERT INTO USERS (username, PWD, Email, userFname, userLname, userPnum, userAddress) VALUES (?, ?, ?, ?, ?, ?, ?);";
-    $prepStatement = mysqli_stmt_init($connection);
-    if (!mysqli_stmt_prepare($prepStatement, $sql)) {
-        header("location: ../Frontend/register.php?error=sqlstatmentfailed");
-        exit();
-    }
-
-    mysqli_stmt_bind_param($prepStatement, "sssssss", $username, $email, $password, $fName, $lName, $address, $pNumber);
-    mysqli_stmt_execute($prepStatement);
-    mysqli_stmt_close($prepStatement);
-    header("location: ../Frontend/register.php?success");
-}
-*/
-
 
 function usernameExists($connection, $username) {
     $sql = "SELECT username from users WHERE username='{$username}';";
@@ -80,9 +41,9 @@ function usernameExists($connection, $username) {
 }
 
 function createUser($connection, $username, $email, $password, $fName, $lName, $address, $pNumber) {
-    $sql = "INSERT INTO users (username, PWD, userEmail, userFname, userLname, userPnum, userAddress) VALUES ('$username', '$password', '$email', '$fName', '$lName', '$pNumber', '$address');";
+    $sql = "INSERT INTO users (username, userPWD, userEmail, userFname, userLname, userPnum, userAddress) VALUES ('$username', '$password', '$email', '$fName', '$lName', '$pNumber', '$address');";
 
-    if ($connection->query($sql) === TRUE)
+    if ($connection->query($sql) === true)
     {
         header("location: ../Frontend/login.php?accountcreated");    
     }

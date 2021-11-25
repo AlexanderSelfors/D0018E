@@ -9,15 +9,17 @@ function emptyInputUpload($itemName, $price, $description, $pic) {
     }
 }
 
-function createSaleItem($itemName, $price, $quantity, $pic){
+function createSaleItem($connection, $itemName, $price, $quantity, $pic){
     $uid = $_SESSION['uid'];
-    $sql = "INSERT INTO products (productID, productCatID, productUID, productName, productPrice, productStock, productUrl) VALUES ('', '', '$uid', '$itemName', '$price', '$quantity', '$pic');";
-    if ($connection->query($sql) === TRUE)
+    $sql = "INSERT INTO products (product_catID, product_userID, productName, productPrice, productStock, productUrl) VALUES ('1', '$uid', '$itemName', '$price', '$quantity', '$pic');";
+    $result = mysqli_query($connection, $sql);  
+    if ($result === true)
     {
-        header("location: ../Frontend/index.php");    
+        header("location: ../Frontend/index.php");
+        exit(); 
     }
     else {
-        header("location: ../Frontend/uploadItem.php?error=sqlfailed");    
-
+        header("location: ../Frontend/uploadItem.php?error=sqlfailed");
+        exit();
     }
 }

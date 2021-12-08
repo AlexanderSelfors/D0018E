@@ -22,7 +22,7 @@
             </div>
             <div class="right-menu">
                 <div class='dropdown-div'>
-                    <a href="#" class='menu-item-dropdown' id='focus'><li>Categories</li></a>
+                    <a href="#" class='menu-item-dropdown'><li>Categories</li></a>
                     <ul class='dropdown'>
                         <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Electronics</a></li>
                         <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Furniture</a></li>

@@ -238,3 +238,8 @@ body{
 a:focus + ul{
     opacity: 1;
 }
+
+.menu-item-dropdown{
+    padding: 1%;
+    font-size: 20px;
+}

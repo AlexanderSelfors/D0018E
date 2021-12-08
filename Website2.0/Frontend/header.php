@@ -21,7 +21,14 @@
                 <a href="index.php"><h1>Trash<span>Students</span></h1></a>
             </div>
             <div class="right-menu">
-                <a href='cart.php' ><li><i class="fa fa-shopping-cart" id='cart'></li></i></a>
+                <div class='dropdown-div'>
+                    <a href="#" class='menu-item-dropdown' id='focus'><li>Categories</li></a>
+                    <ul class='dropdown'>
+                        <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Electronics</a></li>
+                        <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Furniture</a></li>
+                        <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Books</a></li>
+                    </ul>
+                </div>
                 <?php
                     if (isset($_SESSION["uid"])) {
                         $userID = $_SESSION["uid"];
@@ -39,6 +46,7 @@
                         echo("<a href='login.php' class='menu-item'><li>Login</li></a>");
                     }
                 ?>
+                <a href='cart.php'><li><i class="fa fa-shopping-cart" id='cart'></li></i></a>
             </div>
         </div>
     </div>

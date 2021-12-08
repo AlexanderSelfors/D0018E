@@ -44,11 +44,26 @@ function createUser($connection, $username, $email, $password, $fName, $lName, $
     $sql = "INSERT INTO users (username, userPWD, userEmail, userFname, userLname, userPnum, userAddress) VALUES ('$username', '$password', '$email', '$fName', '$lName', '$pNumber', '$address');";
 
     if ($connection->query($sql) === true)
-    {
-        header("location: ../Frontend/login.php?accountcreated");    
+    {   
+        createOrder($connection, findUID($connection, $username));
+
+        header("location: ../Frontend/login.php?accountcreated");  
     }
     else {
         header("location: ../Frontend/register.php?error=sqlfailed");    
 
     }
+}
+
+function findUID($connection, $username){
+    $sql = "select * FROM users WHERE username = '$username'";  
+    $result = mysqli_query($connection, $sql);
+    $row = $result->fetch_array();
+    return $row['userID'];
+}
+
+function createOrder($connection, $userID){
+    $sql = "INSERT INTO `orders`(`order_UID`) VALUES ('$userID')";
+    $result = mysqli_query($connection, $sql);
+
 }

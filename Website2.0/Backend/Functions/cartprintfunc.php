@@ -8,7 +8,7 @@
      // Fetch orderID for user
      $sql = "select orderID
      FROM orders
-     WHERE orderUID = '$userUID' ";
+     WHERE order_UID = '$userUID' ";
      $result = mysqli_query($connection, $sql);
      $row = $result->fetch_array();
      $orderID = $row['orderID'];
@@ -17,9 +17,8 @@
      // Fetch detailName , detailPrice , detailStock , orderID from tables orders and orderdetails
      $fetchdetails = "select detailID , detailName, detailPrice , detailStock
      FROM orderdetails 
-     WHERE detailOrderID = '$orderID' ";
+     WHERE detail_OrderID = '$orderID' ";
      $resultdetails = mysqli_query($connection, $fetchdetails);
-     $arraydetails = $resultdetails->fetch_array();
 
     while( $arraydetails = $resultdetails->fetch_array() )
      {   

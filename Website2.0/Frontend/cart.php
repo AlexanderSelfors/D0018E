@@ -21,12 +21,5 @@
 </div>
 
 
-<form method="post" action= "../Backend/Functions/createorderfunc.php" >
-      <input type="submit" name="createorderbutton"
-        value="create order"/>
-  <div class="cart">
-</div>
-
-
 </html>
 

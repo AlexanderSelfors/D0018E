@@ -12,45 +12,90 @@
         <div class=products>
             <?php
                 require_once "../Backend/dbconn.php";
-                $sql = "SELECT * FROM products;";
-                $result = mysqli_query($connection, $sql);
-                if (mysqli_num_rows($result) > 0) {
-                    while($row = mysqli_fetch_assoc($result)) {
-                        if ($row['productStock'] > 0) {
-                            $productStock = $row['productStock'];
-                        }
-                        else {
-                            $productStock = "Sold out";
-                        }
-                        $userID = $row['product_userID'];
-                        $userSql = "SELECT * FROM users WHERE userID = '$userID';";
-                        $userResult = mysqli_query($connection, $userSql);
-                        $userRow = mysqli_fetch_assoc($userResult); 
-
-                        $username = $userRow['username'];
-                        $productName = $row['productName'];
-                        $productPrice = $row['productPrice'];
-                        $productUrl = $row['productUrl'];
-
-
-                        echo "<table>";
-                        echo "<tr>";
-                        echo "<img src=$productUrl>";
-                        echo "</tr>";
-                        echo "<tr>";
-                        echo "<td>$productName</td>";
-                        echo "<td>Price = $productPrice</td>";
-                        echo "<td>Stock = $productStock</td>";
-                        if (isset($_SESSION['uid'])) {
-                            if($_SESSION['uid'] == 3) {
-                                echo "<td>Delete</td>";
+                    if(isset($_GET["category"])){
+                        $catName = $_GET["category"];
+                        $catSql = "SELECT * FROM category WHERE catName = '$catName';";
+                        $catResult = mysqli_query($connection, $catSql);
+                        $cat = mysqli_fetch_assoc($catResult);
+                        $catID = $cat['catID'];
+                        
+                        $sql = "SELECT * FROM products WHERE product_catID = '$catID';";
+                        $result = mysqli_query($connection, $sql);
+                        while($row = mysqli_fetch_assoc($result)){
+                            if ($row['productStock'] > 0) {
+                                $productStock = $row['productStock'];
                             }
+                            else {
+                                $productStock = "Sold out";
+                            }
+                            $userID = $row['product_userID'];
+                            $userSql = "SELECT * FROM users WHERE userID = '$userID';";
+                            $userResult = mysqli_query($connection, $userSql);
+                            $userRow = mysqli_fetch_assoc($userResult); 
+    
+                            $username = $userRow['username'];
+                            $productName = $row['productName'];
+                            $productPrice = $row['productPrice'];
+                            $productUrl = $row['productUrl'];
+    
+    
+                            echo "<table>";
+                            echo "<tr>";
+                            echo "<img src=$productUrl>";
+                            echo "</tr>";
+                            echo "<tr>";
+                            echo "<td>$productName</td>";
+                            echo "<td>Price = $productPrice</td>";
+                            echo "<td>Stock = $productStock</td>";
+                            if (isset($_SESSION['uid'])) {
+                                if($_SESSION['uid'] == 3) {
+                                    echo "<td>Delete</td>";
+                                }
+                            }
+                            echo "</tr>";
+                            echo "</table>";
+                            echo "<p></p>";
                         }
-                        echo "</tr>";
-                        echo "</table>";
-                        echo "<p></p>";
+                    }else{
+                        $sql = "SELECT * FROM products;";
+                        $result = mysqli_query($connection, $sql);
+                
+                        while($row = mysqli_fetch_assoc($result)) {
+                            if ($row['productStock'] > 0) {
+                                $productStock = $row['productStock'];
+                            }
+                            else {
+                                $productStock = "Sold out";
+                            }
+                            $userID = $row['product_userID'];
+                            $userSql = "SELECT * FROM users WHERE userID = '$userID';";
+                            $userResult = mysqli_query($connection, $userSql);
+                            $userRow = mysqli_fetch_assoc($userResult); 
+    
+                            $username = $userRow['username'];
+                            $productName = $row['productName'];
+                            $productPrice = $row['productPrice'];
+                            $productUrl = $row['productUrl'];
+    
+    
+                            echo "<table>";
+                            echo "<tr>";
+                            echo "<img src=$productUrl>";
+                            echo "</tr>";
+                            echo "<tr>";
+                            echo "<td>$productName</td>";
+                            echo "<td>Price = $productPrice</td>";
+                            echo "<td>Stock = $productStock</td>";
+                            if (isset($_SESSION['uid'])) {
+                                if($_SESSION['uid'] == 3) {
+                                    echo "<td>Delete</td>";
+                                }
+                            }
+                            echo "</tr>";
+                            echo "</table>";
+                            echo "<p></p>";
+                        }
                     }
-                }
             ?>
         </div>
     </body>

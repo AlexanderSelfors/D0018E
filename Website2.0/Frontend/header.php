@@ -24,9 +24,16 @@
                 <div class='dropdown-div'>
                     <a href="#" class='menu-item-dropdown'><li>Categories</li></a>
                     <ul class='dropdown'>
-                        <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Electronics</a></li>
-                        <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Furniture</a></li>
-                        <li class='dropdown-element'><a href="#" class='dropdown-element-a'>Books</a></li>
+                        <?php
+                            $sql = "SELECT * FROM category;";
+                            $result = mysqli_query($connection, $sql);
+                            if (mysqli_num_rows($result) > 0) {
+                                while($row = mysqli_fetch_assoc($result)) {
+                                    $categoryName = $row['catName'];
+                                    echo("<li class='dropdown-element'><a href='index.php?category=$categoryName' class='dropdown-element-a'>$categoryName</a></li>");
+                                }
+                            }
+                        ?>
                     </ul>
                 </div>
                 <?php

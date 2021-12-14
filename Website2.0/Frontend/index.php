@@ -22,7 +22,7 @@
                         $sql = "SELECT * FROM products WHERE product_catID = '$catID';";
                         $result = mysqli_query($connection, $sql);
                         while($row = mysqli_fetch_assoc($result)){
-                            if ($row['productStock'] > 0) {
+                            if ($row['productStock'] > 0){
                                 $productStock = $row['productStock'];
                             }
                             else {
@@ -76,6 +76,7 @@
                             $productName = $row['productName'];
                             $productPrice = $row['productPrice'];
                             $productUrl = $row['productUrl'];
+                            $productID = $row['productID'];
     
     
                             echo "<table>";
@@ -86,6 +87,9 @@
                             echo "<td>$productName</td>";
                             echo "<td>Price = $productPrice</td>";
                             echo "<td>Stock = $productStock</td>";
+                            echo "<form action='index.php' method='POST'>
+                                <button type='submit' name='addProduct' value='$productID'>Buy</button>
+                            </form>";
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
                                     echo "<td>Delete</td>";
@@ -95,6 +99,30 @@
                             echo "</table>";
                             echo "<p></p>";
                         }
+                    }
+
+                    if (isset($_POST["addProduct"])) {
+                        $prodID = $_POST["addProduct"];
+                        $sqlProd = "SELECT * FROM products WHERE productID = $prodID;";
+                        $resultProd = mysqli_query($connection, $sqlProd);
+                        $ProdDetails = mysqli_fetch_row($resultProd);
+
+                        $uid = $_SESSION['uid'];
+                        $sqlOrder = "SELECT * FROM orders WHERE order_UID = $uid;";
+                        $resultOrder = mysqli_query($connection, $sqlOrder);
+                        $OrderDetails = mysqli_fetch_row($resultOrder);
+
+                        $detail_orderID = $OrderDetails[0];
+                        $detail_productID = $prodID;
+                        $detailName = $ProdDetails[3];
+                        $detailPrice = $ProdDetails[4];
+
+                        echo $detail_orderID;
+
+                        $addSql = "INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
+                        detailPrice) VALUES ('$detail_orderID', '$detail_productID', '$detailName', '$detailPrice')";
+                        $result = mysqli_query($connection, $addSql);  
+
                     }
             ?>
         </div>

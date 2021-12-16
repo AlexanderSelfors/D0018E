@@ -51,6 +51,11 @@
                                 if($_SESSION['uid'] == 3) {
                                     echo "<td>Delete</td>";
                                 }
+                                else {
+                                    echo "<td><form action='index.php' method='POST'>
+                                    <button type='submit' name='addProduct' value='$productID'>Add to cart</button>
+                                </form></td>";
+                                }
                             }
                             echo "</tr>";
                             echo "</table>";

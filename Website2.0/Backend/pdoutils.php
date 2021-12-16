@@ -67,7 +67,12 @@ function addtocart(){
         $tempDetailPrice = $productarray['productPrice'];
         $tempDetailStock = $productarray['productStock'];
         $tempDetailIdBefore = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
-        {
+        if ($detailarray = returnArray("SELECT detailID, detailStock FROM orderdetails WHERE detail_orderID = '$sessionOrderID' AND detail_productID = '$sessionProductID'", $db)) {
+            $stock = $detailarray['detailStock'] + $sessionAmount;
+            $detailId = $detailarray['detailID'];
+            $sth = $db->prepare($stmt = ("UPDATE orderdetails SET detailStock = '$stock' WHERE detailID = '$detailId'"));
+        }
+        else {
             $sth = $db->prepare($stmt = ("INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
         detailPrice, detailStock) VALUES ('$sessionOrderID', '$sessionProductID', '$tempDetailName', '$tempDetailPrice' ,'$sessionAmount')"));
         }

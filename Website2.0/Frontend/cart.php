@@ -2,7 +2,7 @@
   include "header.php";
   
   if (isset($_SESSION["uid"])){
-    include_once "../Backend/Functions/cartprintfunc.php";
+    include_once "../Backend/Functions/displaycartFunc.php";
   }
 
 ?>

@@ -39,6 +39,8 @@
                             $productName = $row['productName'];
                             $productPrice = $row['productPrice'];
                             $productUrl = $row['productUrl'];
+                            $productID = $row['productID'];
+
                             ?>
                             <div class="product-item">
                                 <form action='index.php' method='POST'>
@@ -115,6 +117,7 @@
                         if (isset($_POST["quantity"])) {
                             $_SESSION['quantity'] = $_POST["quantity"];
                         }
+                        echo $productID;
                         addtocart();
                     }
                     

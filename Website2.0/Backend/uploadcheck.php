@@ -10,7 +10,6 @@ if (isset($_SESSION["uid"])) {
         $itemName = $_POST["itemName"];
         $price = $_POST['price'];
         $quantity = $_POST['Quan'];
-        $quantity = $_POST['Quan'];
         $pic = $_POST['pic'];
     
         if(emptyInputUpload($itemName, $price, $quantity, $pic)){

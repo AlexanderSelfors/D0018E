@@ -46,7 +46,14 @@ function addtocart(){
         $sth->execute();
     
     /* Write subtraction to products table */
-        $tempStock = $productarray['productStock'] - $sessionAmount;
+        if ($productarray['productStock'] - $sessionAmount > 0)
+        {
+            $tempStock = $productarray['productStock'] - $sessionAmount;
+        }
+        else {
+            $tempStock = 0;
+            $sessionAmount = $productarray['productStock'];
+        }
         $sth = $db->prepare($stmt = ("UPDATE `products` SET `productStock` = '$tempStock' WHERE `products`.`productID` = '$sessionProductID'"));
         $sth->execute();
     /* Errorcheck that subtraction has gone through */

@@ -1,7 +1,14 @@
 <?php
     include_once "../dbconn.php";  
     session_start();
+    ?>
 
+
+    <form action='cart.php' method='POST'>
+    <button type='submit' name='checkout'>Checkout</button>
+    </form>
+
+    <?php
      // Assign variables 
      $userUID = $_SESSION["uid"];
 
@@ -86,6 +93,11 @@
             $sql = "UPDATE products SET productStock = '$productStock' WHERE productID = '$productID'";
             $result = mysqli_query($connection, $sql);
         }
+    }
+    else if (isset($_POST['checkout'])) {
+        $sql = "DELETE FROM orderdetails WHERE detail_orderID = '$orderID'";
+        $result = mysqli_query($connection, $sql);
+
     }
 
 

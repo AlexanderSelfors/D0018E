@@ -216,7 +216,6 @@ body{
     opacity: 0;
     box-shadow: rgb(43, 42, 42) 2px 2px 2px 2px;
     transition: all 0.3s ease;
-    pointer-events: none;
 }
 .dropdown ul{
     text-decoration: none;
@@ -239,10 +238,14 @@ body{
 
 a:focus + ul{
     opacity: 1;
+<<<<<<< HEAD
     pointer-events: auto;
 }
 a:focus{
     pointer-events: auto;
+
+
+>>>>>>> e28bbee8af891f24423122b60a5aa5d0eca6f6b9
 }
 
 .menu-item-dropdown{

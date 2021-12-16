@@ -1,14 +1,14 @@
 <?php
-include "../pdoutils.php";
+
+include "../Backend/pdoutils.php";
 // Create db object
 $db = connect();
 
 // Assign variables for session , used by script to alter tables
-//$userUID = $_SESSION["uid"];
-$sessionUserUID = '12';
-$sessionProductID = '6';
+$sessionUserUID = $_SESSION["uid"];
+$sessionProductID = $_SESSION["pdoprodid"];
 $sessionAmount = '1';
-$sessionOrderID;
+
 
 // Fetch which orderID belongs to session userID
 $orderarray = returnArray($stmt = "SELECT orderID FROM orders WHERE order_UID = '$sessionUserUID'" , $db);

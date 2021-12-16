@@ -23,37 +23,66 @@ function returnArray($stmt , $db){
     return $tempqueryarray;
 }
 
+function addtocart(){
+    // Create db object
+    $db = connect();
+
+    // Assign variables for session , used by script to alter tables
+    $sessionUserUID = $_SESSION["uid"];
+    $sessionProductID = $_SESSION["pdoprodid"];
+    $sessionAmount = '1';
 
 
+    // Fetch which orderID belongs to session userID
+    $orderarray = returnArray($stmt = "SELECT orderID FROM orders WHERE order_UID = '$sessionUserUID'" , $db);
+    $sessionOrderID = $orderarray['orderID'];
 
+    // Fetch Name , Price , Stock for chosen product.
+    $productarray = returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db);
 
+    try {
+        $db->beginTransaction();
+        $sth = $db->prepare($stmt =  "LOCK TABLES products WRITE , orderdetails WRITE");
+        $sth->execute();
+    
+    /* Write subtraction to products table */
+        $tempStock = $productarray['productStock'] - $sessionAmount;
+        $sth = $db->prepare($stmt = ("UPDATE `products` SET `productStock` = '$tempStock' WHERE `products`.`productID` = '$sessionProductID'"));
+        $sth->execute();
+    /* Errorcheck that subtraction has gone through */
+        sleep(1);
+        if (returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db)['productStock'] != $tempStock){
+            $db->rollBack();
+        }
 
+    /* Insert subtracted item from products table to orderdetails */
+        $tempDetailName = $productarray['productName'];
+        $tempDetailPrice = $productarray['productPrice'];
+        $tempDetailStock = $productarray['productStock'];
+        $tempDetailIdBefore = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
+        $sth = $db->prepare($stmt = ("INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
+        detailPrice, detailStock) VALUES ('$sessionOrderID', '$sessionProductID', '$tempDetailName', '$tempDetailPrice' ,'$sessionAmount')"));
+        $sth->execute();
+    
+    /* Errorcheck that order insert went through */
+        sleep(1);
+        $tempDetailIdAfter = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
+        if($tempDetailIdBefore['MAX(detailID)'] == $tempDetailIdAfter['MAX(detailID)']){
+            $db->rollBack();
+        }
+        $sth = $db->prepare($stmt = "UNLOCK TABLES");
+        $sth->execute();
+        $db->commit();
+        $db = null;
 
-/*
-try {
-    $dbh->beginTransaction();
-    // Execute query
-    $sth = $dbh->prepare("SELECT * FROM users");
-    $sth->execute();
+    } catch (PDOException $e) {
+        $sth = $db->prepare($stmt = "UNLOCK TABLES");
+        $sth->execute();
+        print "Error!: " . $e->getMessage() . "<br/>";
+        $db->rollBack();
+        die();
+    }
 
-    // Fetch the array
-    $result = $sth->fetch(PDO::FETCH_BOTH);
-    print_r($result);
-    $dbh = null;
-
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
-}*/
-
-
-/* Fetch all of the remaining rows in the result set */
-//$result = $sth->fetchAll(\PDO::FETCH_ASSOC);
-//print_r($result);
-
-
-
-
-
+}
 
 ?>

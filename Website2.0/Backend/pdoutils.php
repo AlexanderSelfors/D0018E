@@ -67,8 +67,10 @@ function addtocart(){
         $tempDetailPrice = $productarray['productPrice'];
         $tempDetailStock = $productarray['productStock'];
         $tempDetailIdBefore = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
-        $sth = $db->prepare($stmt = ("INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
+        {
+            $sth = $db->prepare($stmt = ("INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
         detailPrice, detailStock) VALUES ('$sessionOrderID', '$sessionProductID', '$tempDetailName', '$tempDetailPrice' ,'$sessionAmount')"));
+        }
         $sth->execute();
     
     /* Errorcheck that order insert went through */

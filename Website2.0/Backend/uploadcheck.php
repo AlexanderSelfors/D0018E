@@ -10,13 +10,20 @@ if (isset($_SESSION["uid"])) {
         $itemName = $_POST["itemName"];
         $price = $_POST['price'];
         $quantity = $_POST['Quan'];
+        $cat = $_POST['cat'];
         $pic = $_POST['pic'];
-    
-        if(emptyInputUpload($itemName, $price, $quantity, $pic)){
-            header("location: ../Frontend/index.php?error=inputmissing");
-            exit();
+        
+        $sql = "SELECT * FROM category WHERE catName = '$cat';";
+        $result = mysqli_query($connection, $sql);
+        $category = mysqli_fetch_row($result);
+        $catID = $category[0];
+        echo $catID;
+
+        if(emptyInputUpload($itemName, $price, $quantity, $catID, $pic)){
+           // header("location: ../Frontend/index.php?error=inputmissing");
+           // exit();
         }else{
-            createSaleItem($connection, $itemName, $price, $quantity, $pic);
+            createSaleItem($connection, $itemName, $price, $quantity, $catID, $pic);
             exit();
         }
     }

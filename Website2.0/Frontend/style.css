@@ -224,10 +224,11 @@ body{
 .dropdown a{
     padding: 5px;
     transition-duration: 0.2s;
+
 }
 
 .dropdown a:hover{
-    text-shadow: 2px 2px rgb(43, 43, 43) ;
+    text-shadow: 2px 2px rgb(43, 43, 43);
 }
 
 .dropdown li{
@@ -237,6 +238,10 @@ body{
 
 a:focus + ul{
     opacity: 1;
+    pointer-events: auto;
+}
+a:focus{
+    pointer-events: auto;
 }
 
 .menu-item-dropdown{

@@ -17,8 +17,6 @@ if (isset($_POST["addProduct"])) {
     $detailName = $ProdDetails[3];
     $detailPrice = $ProdDetails[4];
 
-    echo $detail_orderID;
-
     $addSql = "INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
     detailPrice) VALUES ('$detail_orderID', '$detail_productID', '$detailName', '$detailPrice')";
     $result = mysqli_query($connection, $addSql);  

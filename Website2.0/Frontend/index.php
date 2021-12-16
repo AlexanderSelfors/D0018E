@@ -107,6 +107,7 @@
                         $_SESSION['pdoprodid'] = $_POST["addProduct"];
                         addtocart();
                     }
+                    
             ?>
         </div>
     </body>

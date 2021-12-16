@@ -1,14 +1,5 @@
 <?php
-    include_once "../dbconn.php";  
-    session_start();
-    ?>
 
-
-    <form action='cart.php' method='POST'>
-    <button type='submit' name='checkout'>Checkout</button>
-    </form>
-
-    <?php
      // Assign variables 
      $userUID = $_SESSION["uid"];
 
@@ -26,6 +17,7 @@
      FROM orderdetails 
      WHERE detail_orderID = '$orderID' ";
      $resultdetails = mysqli_query($connection, $fetchdetails);
+     $totalPrice = 0;
 
     while( $arraydetails = $resultdetails->fetch_array() )
      {
@@ -38,6 +30,7 @@
          $name = $arraydetails['detailName'];
          $stock = $arraydetails['detailStock'];
          $price = $arraydetails['detailPrice'] * $stock;
+         $totalPrice += $price;
 
          ?>
         <div class="products">
@@ -55,10 +48,16 @@
                 <button type='submit' name='removeProduct' value='$detailID'>Remove from cart</button>
             </form>";
         }
-        ?>
-        </div>
-        <?php
      }
+     ?>
+     <form action='cart.php' method='POST'>
+     <?php
+     echo "<p>Total price = $totalPrice </p>";
+     ?>
+     <button type='submit' name='checkout'>Checkout</button>
+     </form>
+     </div>
+     <?php
      if (isset($_POST["removeProduct"])) {
         $_SESSION['cartRemoveProd'] = $_POST["removeProduct"];
         $cartRemoveDetailID = $_SESSION['cartRemoveProd'];

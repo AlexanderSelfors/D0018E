@@ -47,8 +47,8 @@
                                 <div class="product-image"><?php echo "<img src=$productUrl>"; ?></div>
                                 <div class="product-tile-footer">
                                 <div class="product-title"><?php echo $productName; ?></div>
-                                <div class="product-price"><?php echo $productPrice; ?></div>
-                                <div class="product-price"><?php echo $productStock; ?></div>
+                                <div class="product-price"><?php echo "Price = $productPrice"; ?></div>
+                                <div class="product-price"><?php echo "Stock = $productStock"; ?></div>
                                 </div>
                             </div>
 
@@ -92,8 +92,8 @@
                                 <div class="product-image"><?php echo "<img src=$productUrl>"; ?></div>
                                 <div class="product-tile-footer">
                                 <div class="product-title"><?php echo $productName; ?></div>
-                                <div class="product-price"><?php echo $productPrice; ?></div>
-                                <div class="product-price"><?php echo $productStock; ?></div>
+                                <div class="product-price"><?php echo "Price = $productPrice"; ?></div>
+                                <div class="product-price"><?php echo "Stock = $productStock"; ?></div>
                                 </div>
                             </div>
 
@@ -117,21 +117,11 @@
                         if (isset($_POST["quantity"])) {
                             $_SESSION['quantity'] = $_POST["quantity"];
                         }
-                        echo $productID;
                         addtocart();
                     }
                     
             ?>
         </div>
     </body>
-
-    <!-- <div class='left-menu'>
-    <a href="./Electronics.php" class="menu-item">Electronics</a>
-    </div>
-
-    <div class='left-menu'>
-    <a href="./Furniture.php" class="menu-item">Furniture</a>
-    </div> -->
-
 
 </html>

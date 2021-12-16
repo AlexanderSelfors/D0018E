@@ -96,7 +96,7 @@ function addtocart(){
         $db->rollBack();
         die();
     }
-    header("Refresh:0; url=http://localhost:3000/Frontend/index.php");
+    header("Refresh:0; location: Frontend/index.php");
 }
 
 ?>

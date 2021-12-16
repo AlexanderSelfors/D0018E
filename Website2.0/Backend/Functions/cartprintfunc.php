@@ -28,20 +28,28 @@
          $imageArr = mysqli_fetch_assoc($imageResult); 
          $image = $imageArr['productURL'];
          $name = $arraydetails['detailName'];
-         $price = $arraydetails['detailPrice'];
          $stock = $arraydetails['detailStock'];
-         echo "<div class=products>";
-         echo "<table>";
-         echo "<tr>";
-         echo "<img src=$image>";
-         echo "</tr>";
-         echo "<tr>";
-         echo "<td>$name</td>";
-         echo "<td>Price = $price</td>";
-         echo "<td>Stock = $stock</td>";
-         echo "</tr>";
-         echo "</table>";
-         echo "</div>";
+         $price = $arraydetails['detailPrice'] * $stock;
+
+         ?>
+        <div class="products">
+            <form action='index.php' method='POST'>
+            <div class="product-image"><?php echo "<img src=$image>"; ?></div>
+            <div class="product-tile-footer">
+            <div class="product-title"><?php echo $name; ?></div>
+            <div class="product-price"><?php echo "Price = $price"; ?></div>
+            <div class="product-price"><?php echo "Amount = $stock"; ?></div>
+            </div>
+
+        <?php
+        if (isset($_SESSION['uid'])) {
+            echo "<div class='cart-action'><input type='text' class='product-quantity' name='quantity' value='1' size='2' />
+                <button type='submit' name='addProduct' value='$productID'>Remove from cart</button>
+            </form>";
+        }
+        ?>
+        </div>
+        <?php
      }
 
 

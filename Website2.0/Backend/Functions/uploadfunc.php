@@ -11,7 +11,7 @@ function emptyInputUpload($itemName, $price, $description, $pic) {
 
 function createSaleItem($connection, $itemName, $price, $quantity, $pic){
     $uid = $_SESSION['uid'];
-    $sql = "INSERT INTO products (product_catID, product_userID, productName, productPrice, productStock, productUrl) VALUES ('1', '$uid', '$itemName', '$price', '$quantity', '$pic');";
+    $sql = "INSERT INTO products (product_userID, productName, productPrice, productStock, productUrl) VALUES ('$uid', '$itemName', '$price', '$quantity', '$pic');";
     $result = mysqli_query($connection, $sql);  
     if ($result === true)
     {

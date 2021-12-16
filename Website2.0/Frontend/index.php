@@ -37,6 +37,7 @@
                             $productName = $row['productName'];
                             $productPrice = $row['productPrice'];
                             $productUrl = $row['productUrl'];
+                            $productID = $row['productID'];
     
     
                             echo "<table>";
@@ -50,6 +51,10 @@
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
                                     echo "<td>Delete</td>";
+                                }else{
+                                    echo "<td><form action='index.php' method='POST'>
+                                    <button type='submit' name='addProduct' value='$productID'>Add to cart</button>
+                                </form></td>";
                                 }
                                 else {
                                     echo "<td><form action='index.php' method='POST'>

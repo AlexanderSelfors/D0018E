@@ -87,12 +87,14 @@
                             echo "<td>$productName</td>";
                             echo "<td>Price = $productPrice</td>";
                             echo "<td>Stock = $productStock</td>";
-                            echo "<form action='index.php' method='POST'>
-                                <button type='submit' name='addProduct' value='$productID'>Buy</button>
-                            </form>";
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
                                     echo "<td>Delete</td>";
+                                }
+                                else {
+                                    echo "<td><form action='index.php' method='POST'>
+                                    <button type='submit' name='addProduct' value='$productID'>Add to cart</button>
+                                </form></td>";
                                 }
                             }
                             echo "</tr>";
@@ -116,25 +118,17 @@
                         $detail_productID = $prodID;
                         $detailName = $ProdDetails[3];
                         $detailPrice = $ProdDetails[4];
+                        $detailStock = $prodDetails[5];
 
                         echo $detail_orderID;
 
                         $addSql = "INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
-                        detailPrice) VALUES ('$detail_orderID', '$detail_productID', '$detailName', '$detailPrice')";
+                        detailPrice, detailStock) VALUES ('$detail_orderID', '$detail_productID', '$detailName', '$detailPrice', '$detailStock')";
                         $result = mysqli_query($connection, $addSql);  
 
                     }
             ?>
         </div>
     </body>
-
-    <!-- <div class='left-menu'>
-    <a href="./Electronics.php" class="menu-item">Electronics</a>
-    </div>
-
-    <div class='left-menu'>
-    <a href="./Furniture.php" class="menu-item">Furniture</a>
-    </div> -->
-
 
 </html>

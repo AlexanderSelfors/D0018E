@@ -39,24 +39,29 @@
                             $productName = $row['productName'];
                             $productPrice = $row['productPrice'];
                             $productUrl = $row['productUrl'];
-    
-    
-                            echo "<table>";
-                            echo "<tr>";
-                            echo "<img src=$productUrl>";
-                            echo "</tr>";
-                            echo "<tr>";
-                            echo "<td>$productName</td>";
-                            echo "<td>Price = $productPrice</td>";
-                            echo "<td>Stock = $productStock</td>";
+                            ?>
+                            <div class="product-item">
+                                <form action='index.php' method='POST'>
+                                <div class="product-image"><?php echo "<img src=$productUrl>"; ?></div>
+                                <div class="product-tile-footer">
+                                <div class="product-title"><?php echo $productName; ?></div>
+                                <div class="product-price"><?php echo $productPrice; ?></div>
+                                <div class="product-price"><?php echo $productStock; ?></div>
+                                </div>
+                            </div>
+
+                            <?php
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
                                     echo "<td>Delete</td>";
                                 }
+                                else {
+                                    echo "<div class='cart-action'><input type='text' class='product-quantity' name='quantity' value='1' size='2' />
+                                        <button type='submit' name='addProduct' value='$productID'>Add to cart</button>
+                                    </form>";
+
+                                }
                             }
-                            echo "</tr>";
-                            echo "</table>";
-                            echo "<p></p>";
                         }
                     }else{
                         $sql = "SELECT * FROM products;";
@@ -79,32 +84,37 @@
                             $productPrice = $row['productPrice'];
                             $productUrl = $row['productUrl'];
                             $productID = $row['productID'];
-    
-    
-                            echo "<table>";
-                            echo "<tr>";
-                            echo "<img src=$productUrl>";
-                            echo "</tr>";
-                            echo "<tr>";
-                            echo "<td>$productName</td>";
-                            echo "<td>Price = $productPrice</td>";
-                            echo "<td>Stock = $productStock</td>";
-                            echo "<form action='index.php' method='POST'>
-                                <button type='submit' name='addProduct' value='$productID'>Buy</button>
-                            </form>";
+                            ?>
+                            <div class="product-item">
+                                <form action='index.php' method='POST'>
+                                <div class="product-image"><?php echo "<img src=$productUrl>"; ?></div>
+                                <div class="product-tile-footer">
+                                <div class="product-title"><?php echo $productName; ?></div>
+                                <div class="product-price"><?php echo $productPrice; ?></div>
+                                <div class="product-price"><?php echo $productStock; ?></div>
+                                </div>
+                            </div>
+
+                            <?php
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
                                     echo "<td>Delete</td>";
                                 }
+                                else {
+                                    echo "<div class='cart-action'><input type='text' class='product-quantity' name='quantity' value='1' size='2' />
+                                        <button type='submit' name='addProduct' value='$productID'>Add to cart</button>
+                                    </form>";
+
+                                }
                             }
-                            echo "</tr>";
-                            echo "</table>";
-                            echo "<p></p>";
                         }
                     }
 
                     if (isset($_POST["addProduct"])) {
                         $_SESSION['pdoprodid'] = $_POST["addProduct"];
+                        if (isset($_POST["quantity"])) {
+                            $_SESSION['quantity'] = $_POST["quantity"];
+                        }
                         addtocart();
                     }
                     

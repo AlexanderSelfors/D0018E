@@ -187,17 +187,9 @@ body{
 
 .products {
     display: block;
-    margin: 0 0 0 30%;
+    text-align: center;
 }
 
-.products table {
-    margin-bottom: 70px;
-}
-
-.products table tr td {
-    padding-right: 60px;
-    font-size: 25px;
-}
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-div{

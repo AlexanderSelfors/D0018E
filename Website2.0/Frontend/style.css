@@ -216,6 +216,7 @@ body{
     opacity: 0;
     box-shadow: rgb(43, 42, 42) 2px 2px 2px 2px;
     transition: all 0.3s ease;
+    pointer-events: none;
 }
 .dropdown ul{
     text-decoration: none;
@@ -224,6 +225,7 @@ body{
 .dropdown a{
     padding: 5px;
     transition-duration: 0.2s;
+
 }
 
 .dropdown a:hover{
@@ -237,6 +239,7 @@ body{
 
 a:focus + ul{
     opacity: 1;
+    pointer-events: all;
 }
 
 .menu-item-dropdown{

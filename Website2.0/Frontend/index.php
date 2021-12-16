@@ -117,6 +117,7 @@
                         }
                         addtocart();
                     }
+                    
             ?>
         </div>
     </body>

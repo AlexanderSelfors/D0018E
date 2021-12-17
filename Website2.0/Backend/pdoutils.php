@@ -57,7 +57,7 @@ function addtocart(){
         $sth = $db->prepare($stmt = ("UPDATE `products` SET `productStock` = '$tempStock' WHERE `products`.`productID` = '$sessionProductID'"));
         $sth->execute();
     /* Errorcheck that subtraction has gone through */
-        sleep(1);
+        sleep(0.2);
         if (returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db)['productStock'] != $tempStock){
             $db->rollBack();
         }
@@ -79,7 +79,7 @@ function addtocart(){
         $sth->execute();
     
     /* Errorcheck that order insert went through */
-        sleep(1);
+        sleep(0.2);
         $tempDetailIdAfter = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
         if($tempDetailIdBefore['MAX(detailID)'] == $tempDetailIdAfter['MAX(detailID)']){
             $db->rollBack();
@@ -96,7 +96,7 @@ function addtocart(){
         $db->rollBack();
         die();
     }
-    header("Refresh:0; location: Frontend/index.php");
+    header("Location: index.php?addedItem");
 }
 
 ?>

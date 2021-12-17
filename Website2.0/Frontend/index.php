@@ -55,7 +55,7 @@
                             <?php
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
-                                    echo "<td>Delete</td>";
+                                    echo "<button type='submit' name='removeProduct' value='$productID'>Remove product</button>";
                                 }
                                 else {
                                     echo "<div class='cart-action'><input type='text' class='product-quantity' name='quantity' value='1' size='2' />
@@ -88,7 +88,7 @@
                             $productID = $row['productID'];
                             ?>
                             <div class="product-item">
-                                <form action='index.php' method='POST'>
+                                <form action = 'index.php' method='POST'>
                                 <div class="product-image"><?php echo "<img src=$productUrl>"; ?></div>
                                 <div class="product-tile-footer">
                                 <div class="product-title"><?php echo $productName; ?></div>
@@ -100,7 +100,7 @@
                             <?php
                             if (isset($_SESSION['uid'])) {
                                 if($_SESSION['uid'] == 3) {
-                                    echo "<td>Delete</td>";
+                                    echo "<button type='submit' name='removeProduct' value='$productID'>Remove product</button>";
                                 }
                                 else {
                                     echo "<div class='cart-action'><input type='text' class='product-quantity' name='quantity' value='1' size='2' />
@@ -118,6 +118,13 @@
                             $_SESSION['quantity'] = $_POST["quantity"];
                         }
                         addtocart();
+                    }
+                    if (isset($_POST['removeProduct'])) {
+                        $removeProdID = $_POST['removeProduct'];
+                        $sql = "DELETE FROM orderdetails WHERE detail_productID = '$removeProdID'";
+                        $result = mysqli_query($connection, $sql);
+                        $sql = "DELETE FROM products WHERE productID = '$removeProdID'";
+                        $result = mysqli_query($connection, $sql);
                     }
                     
             ?>

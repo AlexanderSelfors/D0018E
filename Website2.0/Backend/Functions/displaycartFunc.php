@@ -92,12 +92,11 @@
             $sql = "UPDATE products SET productStock = '$productStock' WHERE productID = '$productID'";
             $result = mysqli_query($connection, $sql);
         }
+        header("Location: ./cart.php?removedItem");
     }
     else if (isset($_POST['checkout'])) {
         $sql = "DELETE FROM orderdetails WHERE detail_orderID = '$orderID'";
         $result = mysqli_query($connection, $sql);
-
     }
-
 
 ?>

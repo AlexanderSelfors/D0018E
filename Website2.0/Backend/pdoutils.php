@@ -30,6 +30,7 @@ function addtocart(){
 
     // Assign variables for session , used by script to alter tables
     $sessionUserUID = $_SESSION["uid"];
+    $sessionProductID =$_SESSION["pdoprodid"];
 
     // Fetch Name , Price , Stock for chosen product.
     $productarray = returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db);

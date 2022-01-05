@@ -23,26 +23,20 @@ function returnArray($stmt , $db){
     return $tempqueryarray;
 }
 
+
 function addtocart(){
     // Create db object
     $db = connect();
 
     // Assign variables for session , used by script to alter tables
     $sessionUserUID = $_SESSION["uid"];
-    $sessionProductID = $_SESSION["pdoprodid"];
-    $sessionAmount = $_SESSION['quantity'];
-
-
-    // Fetch which orderID belongs to session userID
-    $orderarray = returnArray($stmt = "SELECT orderID FROM orders WHERE order_UID = '$sessionUserUID'" , $db);
-    $sessionOrderID = $orderarray['orderID'];
 
     // Fetch Name , Price , Stock for chosen product.
     $productarray = returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db);
 
     try {
         $db->beginTransaction();
-        $sth = $db->prepare($stmt =  "LOCK TABLES products WRITE , orderdetails WRITE");
+        $sth = $db->prepare($stmt =  "LOCK TABLES products WRITE , cart WRITE");
         $sth->execute();
     
     /* Write subtraction to products table */
@@ -56,34 +50,16 @@ function addtocart(){
         }
         $sth = $db->prepare($stmt = ("UPDATE `products` SET `productStock` = '$tempStock' WHERE `products`.`productID` = '$sessionProductID'"));
         $sth->execute();
-    /* Errorcheck that subtraction has gone through */
-        sleep(0.2);
-        if (returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db)['productStock'] != $tempStock){
-            $db->rollBack();
-        }
 
-    /* Insert subtracted item from products table to orderdetails */
-        $tempDetailName = $productarray['productName'];
-        $tempDetailPrice = $productarray['productPrice'];
-        $tempDetailStock = $productarray['productStock'];
-        $tempDetailIdBefore = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
-        if ($detailarray = returnArray("SELECT detailID, detailStock FROM orderdetails WHERE detail_orderID = '$sessionOrderID' AND detail_productID = '$sessionProductID'", $db)) {
-            $stock = $detailarray['detailStock'] + $sessionAmount;
-            $detailId = $detailarray['detailID'];
-            $sth = $db->prepare($stmt = ("UPDATE orderdetails SET detailStock = '$stock' WHERE detailID = '$detailId'"));
-        }
-        else {
-            $sth = $db->prepare($stmt = ("INSERT INTO orderdetails (detail_orderID, detail_productID, detailName,
-        detailPrice, detailStock) VALUES ('$sessionOrderID', '$sessionProductID', '$tempDetailName', '$tempDetailPrice' ,'$sessionAmount')"));
-        }
+    /* Insert subtracted item from products table to cart */
+        $tempcartName = $productarray['productName'];
+        $tempcartPrice = $productarray['productPrice'];
+        $tempcartStock = $productarray['productStock'];
+
+        $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$tempcartStock')"));
         $sth->execute();
-    
-    /* Errorcheck that order insert went through */
-        sleep(0.2);
-        $tempDetailIdAfter = returnArray(("SELECT MAX(detailID) FROM orderdetails"),$db);
-        if($tempDetailIdBefore['MAX(detailID)'] == $tempDetailIdAfter['MAX(detailID)']){
-            $db->rollBack();
-        }
+
+        // Release lock , commit changes , terminate connection
         $sth = $db->prepare($stmt = "UNLOCK TABLES");
         $sth->execute();
         $db->commit();
@@ -97,6 +73,48 @@ function addtocart(){
         die();
     }
     header("Location: index.php?addedItem");
+
+
+    function checkout(){
+    // Create db object
+    $db = connect();
+
+    // Assign variables for session , used by script to alter tables
+    $sessionUserUID = $_SESSION["uid"];
+
+    
+    try{
+        $db->beginTransaction();
+        $sth = $db->prepare($stmt =  "LOCK TABLES cart WRITE , orderdetails WRITE , orders WRITE");
+        $sth->execute();
+        
+        // 1. Fetch array , each row in cart that belongs to sessionuserid
+
+        // 2. Insert new order into order table , use sessionuserid
+
+        // 3. Fetch the new orderID using MAX
+
+        // 4. for each row in 1. , insert into orderdetails 
+
+        // 5. remove from cart.
+        
+        // Release lock , commit changes , terminate connection
+        $sth = $db->prepare($stmt = "UNLOCK TABLES");
+        $sth->execute();
+        $db->commit();
+        $db = null;
+
+    } catch (PDOException $e) {
+        $sth = $db->prepare($stmt = "UNLOCK TABLES");
+        $sth->execute();
+        print "Error!: " . $e->getMessage() . "<br/>";
+        $db->rollBack();
+        die();
+    }
+    header("Location: index.php?addedItem");
+
+
+    }
 }
 
 ?>

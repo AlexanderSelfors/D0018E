@@ -116,7 +116,7 @@ function pdocheckout(){
             $tempCartName = $cartarray['productName'];
             $tempCartPrice = $cartarray['productPrice'];
             $tempCartStock = $cartarray['productStock'];
-            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice','$tempCartStock')");
+            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice',$tempCartStock )");
             $sth->execute();
         }
 

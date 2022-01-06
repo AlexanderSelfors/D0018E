@@ -31,6 +31,7 @@ function addtocart(){
     // Assign variables for session , used by script to alter tables
     $sessionUserUID = $_SESSION["uid"];
     $sessionProductID =$_SESSION["pdoprodid"];
+    $sessionAmount = $_SESSION['quantity'];
 
     // Fetch Name , Price , Stock for chosen product.
     $productarray = returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db);
@@ -77,7 +78,7 @@ function addtocart(){
     }
 
 
-function checkout(){
+function pdocheckout(){
     // Create db object
     $db = connect();
     
@@ -92,7 +93,7 @@ function checkout(){
         
         // 1. Fetch array , each row in cart that belongs to sessionuserid
 
-        $cartarray = returnArray($stmt ="SELECT * FROM cart WHERE cart_userID = '$sessionProductID'" , $db);
+        $cartarray = returnArray($stmt ="SELECT * FROM cart WHERE cart_userID = '$sessionUserUID'" , $db);
         
         // 2. Insert new order into order table , use sessionuserid
 
@@ -100,22 +101,28 @@ function checkout(){
         $sth = $db->prepare($stmt =  "INSERT INTO `orders`(`order_UID`) VALUES ('$sessionUserUID')");
         $sth->execute();
         sleep(0.2);
-        $tempnewOrderID = returnArray($stmt=("SELECT MAX(orderID) FROM orderdetails"),$db)['orderID'];
+        $temporderarray = returnArray($stmt=("SELECT MAX(orderID) FROM orders"),$db);
+        $tempnewOrderID = $temporderarray[0];
 
-        // 4. for each row in 1. , insert into orderdetails 
-
+        // 4. Insert cart items to orderdetails
         foreach ($cartarray as $row ){
             $tempCartProdId = $cartarray['cart_productID'];
             $tempCartName = $cartarray['productName'];
             $tempCartPrice = $cartarray['productPrice'];
             $tempCartStock = $cartarray['productStock'];
-            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice','$tempCartPrice')");
+            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice','$tempCartStock')");
             $sth->execute();
         }
 
         // 5. remove from cart.
         $sth = $db->prepare($stmt = " DELETE  FROM `cart` WHERE cart_userID = '$sessionUserUID' ");
         $sth->execute();
+
+
+        
+        // 4. for each row in 1. , insert into orderdetails 
+
+
 
         // Release lock , commit changes , terminate connection
         $sth = $db->prepare($stmt = "UNLOCK TABLES");

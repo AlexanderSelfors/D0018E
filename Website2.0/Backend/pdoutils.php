@@ -31,6 +31,7 @@ function addtocart(){
     // Assign variables for session , used by script to alter tables
     $sessionUserUID = $_SESSION["uid"];
     $sessionProductID =$_SESSION["pdoprodid"];
+    $sessionAmount = $_SESSION['quantity'];
 
     // Fetch Name , Price , Stock for chosen product.
     $productarray = returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db);
@@ -56,8 +57,14 @@ function addtocart(){
         $tempcartName = $productarray['productName'];
         $tempcartPrice = $productarray['productPrice'];
         $tempcartStock = $productarray['productStock'];
-
-        $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$tempcartStock')"));
+        if ($detailarray = returnArray("SELECT cart_transactionID, productStock FROM cart WHERE cart_userID = '$sessionUserUID' AND cart_productID = '$sessionProductID'", $db)) {
+            $stock = $detailarray['productStock'] + $sessionAmount;
+            $cartId = $detailarray['cart_transactionID'];
+            $sth = $db->prepare($stmt = ("UPDATE cart SET productStock = '$stock' WHERE cart_transactionID = '$cartId'"));
+        }
+        else {
+            $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$sessionAmount')"));
+        }
         $sth->execute();
 
         // Release lock , commit changes , terminate connection
@@ -74,12 +81,13 @@ function addtocart(){
         die();
     }
     header("Location: index.php?addedItem");
+    }
 
 
-    function checkout(){
+function pdocheckout(){
     // Create db object
     $db = connect();
-
+    
     // Assign variables for session , used by script to alter tables
     $sessionUserUID = $_SESSION["uid"];
 
@@ -91,14 +99,48 @@ function addtocart(){
         
         // 1. Fetch array , each row in cart that belongs to sessionuserid
 
+        $cartarray = returnArray($stmt ="SELECT * FROM cart WHERE cart_userID = '$sessionUserUID'" , $db);
+        
         // 2. Insert new order into order table , use sessionuserid
 
-        // 3. Fetch the new orderID using MAX
 
-        // 4. for each row in 1. , insert into orderdetails 
+        $sth = $db->prepare($stmt =  "INSERT INTO `orders`(`order_UID`) VALUES ('$sessionUserUID')");
+        $sth->execute();
+        sleep(0.2);
+        $temporderarray = returnArray($stmt=("SELECT MAX(orderID) FROM orders"),$db);
+        $tempnewOrderID = $temporderarray[0];
+
+        // 4. Insert cart items to orderdetails
+        foreach ($cartarray as $row ){
+            $tempCartProdId = $cartarray['cart_productID'];
+            $tempCartName = $cartarray['productName'];
+            $tempCartPrice = $cartarray['productPrice'];
+            $tempCartStock = $cartarray['productStock'];
+            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice',$tempCartStock )");
+            $sth->execute();
+        }
 
         // 5. remove from cart.
+        $sth = $db->prepare($stmt = " DELETE  FROM `cart` WHERE cart_userID = '$sessionUserUID' ");
+        $sth->execute();
+
+
         
+        // 4. for each row in 1. , insert into orderdetails 
+
+        foreach ($cartarray as $row ){
+            $tempCartProdId = $cartarray['cart_productID'];
+            $tempCartName = $cartarray['productName'];
+            $tempCartPrice = $cartarray['productPrice'];
+            $tempCartStock = $cartarray['productStock'];
+            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice','$tempCartPrice')");
+            $sth->execute();
+        }
+
+        // 5. remove from cart.
+        $sth = $db->prepare($stmt = " DELETE  FROM `cart` WHERE cart_userID = '$sessionUserUID' ");
+        $sth->execute();
+
         // Release lock , commit changes , terminate connection
         $sth = $db->prepare($stmt = "UNLOCK TABLES");
         $sth->execute();
@@ -114,8 +156,10 @@ function addtocart(){
     }
     header("Location: index.php?addedItem");
 
-
-    }
 }
+
+    
+
+
 
 ?>

@@ -57,8 +57,14 @@ function addtocart(){
         $tempcartName = $productarray['productName'];
         $tempcartPrice = $productarray['productPrice'];
         $tempcartStock = $productarray['productStock'];
-
-        $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$tempcartStock')"));
+        if ($detailarray = returnArray("SELECT cart_transactionID, productStock FROM cart WHERE cart_userID = '$sessionUserUID' AND cart_productID = '$sessionProductID'", $db)) {
+            $stock = $detailarray['productStock'] + $sessionAmount;
+            $cartId = $detailarray['cart_transactionID'];
+            $sth = $db->prepare($stmt = ("UPDATE cart SET productStock = '$stock' WHERE cart_transactionID = '$cartId'"));
+        }
+        else {
+            $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$sessionAmount')"));
+        }
         $sth->execute();
 
         // Release lock , commit changes , terminate connection

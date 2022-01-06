@@ -87,6 +87,7 @@
     }
     else if (isset($_POST['checkout'])) {
         pdocheckout();
+       
         //$sql = "DELETE FROM cart WHERE cart_userID = '$userUID'";
         //$result = mysqli_query($connection, $sql);
     }

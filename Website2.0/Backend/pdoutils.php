@@ -23,6 +23,13 @@ function returnArray($stmt , $db){
     return $tempqueryarray;
 }
 
+function returnAllArray($stmt,$db){
+    $sth = $db->prepare($stmt);
+    $sth->execute();
+    $tempqueryallarray = $sth->fetchAll();
+    return $tempqueryallarray;
+}
+
 
 function addtocart(){
     // Create db object
@@ -99,7 +106,7 @@ function pdocheckout(){
         
         // 1. Fetch array , each row in cart that belongs to sessionuserid
 
-        $cartarray = returnArray($stmt ="SELECT * FROM cart WHERE cart_userID = '$sessionUserUID'" , $db);
+        $cartarray = returnAllArray($stmt ="SELECT * FROM cart WHERE cart_userID = '$sessionUserUID'" , $db);
         
         // 2. Insert new order into order table , use sessionuserid
 
@@ -111,30 +118,17 @@ function pdocheckout(){
         $tempnewOrderID = $temporderarray[0];
 
         // 4. Insert cart items to orderdetails
-        foreach ($cartarray as $row ){
-            $tempCartProdId = $cartarray['cart_productID'];
-            $tempCartName = $cartarray['productName'];
-            $tempCartPrice = $cartarray['productPrice'];
-            $tempCartStock = $cartarray['productStock'];
-            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice',$tempCartStock )");
-            $sth->execute();
-        }
-
-        // 5. remove from cart.
-        $sth = $db->prepare($stmt = " DELETE  FROM `cart` WHERE cart_userID = '$sessionUserUID' ");
-        $sth->execute();
-
-
         
-        // 4. for each row in 1. , insert into orderdetails 
-
-        foreach ($cartarray as $row ){
-            $tempCartProdId = $cartarray['cart_productID'];
-            $tempCartName = $cartarray['productName'];
-            $tempCartPrice = $cartarray['productPrice'];
-            $tempCartStock = $cartarray['productStock'];
-            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice','$tempCartPrice')");
-            $sth->execute();
+        $count = 0;
+        while($cartarray){
+        $tempCartProdId = ($cartarray[$count])['cart_productID'];
+        $tempCartName = ($cartarray[$count])['productName'];
+        $tempCartPrice = ($cartarray[$count])['productPrice'];
+        $tempCartStock = ($cartarray[$count])['productStock'];
+        $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice',$tempCartStock )");
+        $sth->execute();
+        unset($cartarray[$count]);
+        $count = $count + 1;
         }
 
         // 5. remove from cart.
@@ -154,7 +148,7 @@ function pdocheckout(){
         $db->rollBack();
         die();
     }
-    header("Location: index.php?addedItem");
+    
 
 }
 

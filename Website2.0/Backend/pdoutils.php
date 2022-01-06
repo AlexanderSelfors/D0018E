@@ -31,6 +31,7 @@ function addtocart(){
     // Assign variables for session , used by script to alter tables
     $sessionUserUID = $_SESSION["uid"];
     $sessionProductID =$_SESSION["pdoprodid"];
+    $sessionAmount = $_SESSION['quantity'];
 
     // Fetch Name , Price , Stock for chosen product.
     $productarray = returnArray($stmt ="SELECT productName , productPrice , productStock FROM products WHERE productID = '$sessionProductID'" , $db);
@@ -56,8 +57,14 @@ function addtocart(){
         $tempcartName = $productarray['productName'];
         $tempcartPrice = $productarray['productPrice'];
         $tempcartStock = $productarray['productStock'];
-
-        $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$tempcartStock')"));
+        if ($detailarray = returnArray("SELECT cart_transactionID, productStock FROM cart WHERE cart_userID = '$sessionUserUID' AND cart_productID = '$sessionProductID'", $db)) {
+            $stock = $detailarray['productStock'] + $sessionAmount;
+            $cartId = $detailarray['cart_transactionID'];
+            $sth = $db->prepare($stmt = ("UPDATE cart SET productStock = '$stock' WHERE cart_transactionID = '$cartId'"));
+        }
+        else {
+            $sth = $db->prepare($stmt = ("INSERT INTO `cart`(`cart_userID`, `cart_productID`, `productName`, `productPrice`, `productStock`) VALUES ('$sessionUserUID','$sessionProductID','$tempcartName','$tempcartPrice','$sessionAmount')"));
+        }
         $sth->execute();
 
         // Release lock , commit changes , terminate connection

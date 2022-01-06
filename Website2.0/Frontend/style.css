@@ -207,6 +207,7 @@ body{
     opacity: 0;
     box-shadow: rgb(43, 42, 42) 2px 2px 2px 2px;
     transition: all 0.3s ease;
+    pointer-events: none;
 }
 .dropdown ul{
     text-decoration: none;
@@ -238,4 +239,29 @@ a:focus{
 .menu-item-dropdown{
     padding: 1%;
     font-size: 20px;
+}
+
+.reviewList{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+
+.reviewName{
+    color: white;
+    background-color: #999;
+    border-radius: 5px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 100%;
+}
+
+.reviewName:hover{
+    box-shadow:5px 5px rgb(43, 43, 43);
 }

@@ -21,6 +21,7 @@
                 <a href="index.php"><h1>Trash<span>Students</span></h1></a>
             </div>
             <div class="right-menu">
+                <a href="reviews.php" class='menu-item'><li>Reviews</li></a>
                 <div class='dropdown-div'>
                     <a href="#" class='menu-item-dropdown'><li>Categories</li></a>
                     <ul class='dropdown'>

@@ -6,8 +6,9 @@ if(isset($_POST["reviewSubmit"])){
         $rating = $_POST["rating"];
         $review = $_POST["review"];
         $product = $_GET["product"];
-        $sql = "INSERT INTO 'review' ('review_productID', 'reviewGrade', 'reviewComment') VALUES ('$product', '$rating', '$review')";
+        $sql = "INSERT INTO review (review_productID, reviewGrade, reviewComment) VALUES ('$product', '$rating', '$review')";
         $result = $connection->query($sql);
+        
         header("location: ../Frontend/productReview.php?product=$product");
     }
 }

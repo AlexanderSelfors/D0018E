@@ -128,7 +128,18 @@ function pdocheckout(){
         
         // 4. for each row in 1. , insert into orderdetails 
 
+        foreach ($cartarray as $row ){
+            $tempCartProdId = $cartarray['cart_productID'];
+            $tempCartName = $cartarray['productName'];
+            $tempCartPrice = $cartarray['productPrice'];
+            $tempCartStock = $cartarray['productStock'];
+            $sth = $db->prepare($stmt = "INSERT INTO `orderdetails`(`detail_orderID`, `detail_productID`, `detailName`, `detailPrice`, `detailStock`) VALUES ('$tempnewOrderID','$tempCartProdId','$tempCartName','$tempCartPrice','$tempCartPrice')");
+            $sth->execute();
+        }
 
+        // 5. remove from cart.
+        $sth = $db->prepare($stmt = " DELETE  FROM `cart` WHERE cart_userID = '$sessionUserUID' ");
+        $sth->execute();
 
         // Release lock , commit changes , terminate connection
         $sth = $db->prepare($stmt = "UNLOCK TABLES");

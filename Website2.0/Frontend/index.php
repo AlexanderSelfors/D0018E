@@ -121,7 +121,7 @@
                     }
                     if (isset($_POST['removeProduct'])) {
                         $removeProdID = $_POST['removeProduct'];
-                        $sql = "DELETE FROM orderdetails WHERE detail_productID = '$removeProdID'";
+                        $sql = "DELETE FROM cart WHERE cart_productID = '$removeProdID'";
                         $result = mysqli_query($connection, $sql);
                         $sql = "DELETE FROM products WHERE productID = '$removeProdID'";
                         $result = mysqli_query($connection, $sql);

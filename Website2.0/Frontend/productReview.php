@@ -5,6 +5,9 @@
 $product = $_GET['product'];
 echo("<form action='../Backend/reviewCheck.php?product=$product' method='post' class='reviewForm'>");
 echo("<h1>Reviews</h1>");
+
+if (isset($_SESSION['uid'])) {
+
 ?>
     <input type="number" name="rating" placeholder="Enter a value between 1 and 5" min=1 max =5 id='ratingField'>
 </br>
@@ -14,4 +17,5 @@ echo("<h1>Reviews</h1>");
 </form>
 
 <?php
+}
     require_once "../Backend/LoadReviews.php";
